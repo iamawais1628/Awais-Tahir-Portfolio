@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" /><meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Python Can Automate Repetitive Accounting Tasks | Awais Tahir</title>
+  <meta name="description" content="Accountants waste hours on manual processes. Python can automate spreadsheet cleaning, reconciliation, report generation, and more — freeing time for real analysis." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" /><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@300;400;500;600&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="../style.css" /><link rel="stylesheet" href="blog-post.css" />
+</head>
+<body>
+<nav id="navbar"><div class="nav-inner"><a href="../index.html" class="nav-logo"><span class="logo-at">AT</span><span class="logo-name">Awais Tahir</span></a><ul class="nav-links"><li><a href="../about.html">About</a></li><li><a href="../services.html">Services</a></li><li><a href="../skills.html">Skills</a></li><li><a href="../portfolio.html">Portfolio</a></li><li><a href="../insights.html" style="color:var(--blue-light)">Insights</a></li><li><a href="../index.html#contact" class="nav-cta">Let's Talk</a></li></ul><button class="hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button></div></nav>
+<div class="mobile-menu" id="mobileMenu"><ul><li><a href="../about.html" onclick="closeMobile()">About</a></li><li><a href="../services.html" onclick="closeMobile()">Services</a></li><li><a href="../skills.html" onclick="closeMobile()">Skills</a></li><li><a href="../portfolio.html" onclick="closeMobile()">Portfolio</a></li><li><a href="../insights.html" onclick="closeMobile()">Insights</a></li><li><a href="../index.html#contact" onclick="closeMobile()">Contact</a></li></ul></div>
+
+<section class="blog-hero">
+  <div class="blog-hero-orb bh-orb-1"></div><div class="blog-hero-orb bh-orb-2"></div>
+  <div class="container">
+    <div class="blog-breadcrumb"><a href="../index.html">Home</a> › <a href="../insights.html">Insights</a> › <span>Python</span></div>
+    <div class="blog-cat">🐍 Python</div>
+    <h1 class="blog-title">How Python Can Automate Repetitive Accounting Tasks</h1>
+    <div class="blog-meta-row">
+      <div class="blog-author"><div class="blog-author-avatar">AT</div><div><div class="blog-author-name">Awais Tahir</div><div class="blog-author-role">Finance Professional · Python Developer</div></div></div>
+      <div class="blog-meta-sep"></div>
+      <div class="blog-meta-item">📅 April 25, 2026</div>
+      <div class="blog-meta-item">⏱ 9 min read</div>
+      <div class="blog-meta-item">👁 Python · Automation</div>
+    </div>
+    <div class="blog-tags"><span class="blog-tag">Python</span><span class="blog-tag">Automation</span><span class="blog-tag">Accounting</span><span class="blog-tag">Finance</span></div>
+  </div>
+</section>
+<div class="blog-banner" style="background:linear-gradient(135deg,#0f172a 0%,#1e3a8a 50%,#60a5fa 100%)"><div class="blog-banner-emoji">🐍</div></div>
+
+<section class="blog-body-section">
+  <div class="container">
+    <div class="blog-layout">
+      <article class="blog-content">
+
+        <div class="blog-summary">
+          <div class="blog-summary-title">⚡ Key Takeaways</div>
+          <ul>
+            <li>Any accounting task you repeat every week or month without thinking is a candidate for Python automation</li>
+            <li>You do not need to be a software engineer — basic Python with Pandas and openpyxl handles 80% of accounting automation needs</li>
+            <li>The four highest-value tasks to automate first: data cleaning, bank reconciliation, report generation, and invoice processing</li>
+            <li>A reusable Python script runs in seconds and produces zero formatting errors — unlike manual Excel work</li>
+            <li>Automation does not replace accountants — it removes the mechanical work so accountants can focus on analysis and judgment</li>
+          </ul>
+        </div>
+
+        <h2>The Accounting Work That Should Not Exist</h2>
+        <p>Every accounting team has tasks that nobody enjoys, nobody learns from, and nobody would miss if they disappeared tomorrow. Copy-pasting data between spreadsheets. Reformatting the same report template every month. Manually checking 500 invoice line items against a bank statement. Exporting from the accounting system, cleaning it up in Excel, and pasting it into a report — every single month, identically.</p>
+        <p>These tasks share one characteristic: <strong>they follow a fixed, repeatable process with no judgment required.</strong> That is exactly the definition of work Python can do better than a human — faster, with no errors, and without ever needing a coffee break.</p>
+        <p>This article covers the four accounting automation tasks with the highest return on the time it takes to build them.</p>
+
+        <h2>Task 1 — Automated Data Cleaning</h2>
+        <p>Every accounting software export is different. QuickBooks adds header rows. Xero uses inconsistent date formats. Bank exports include currency symbols in amount columns. Excel files from different branches have different column names for the same data. Cleaning all of this manually before analysis is mechanical, error-prone, and completely automatable.</p>
+
+        <div class="blog-code">
+          <div class="blog-code-header"><div class="blog-code-dots"><div class="blog-code-dot" style="background:#f97316"></div><div class="blog-code-dot" style="background:#f59e0b"></div><div class="blog-code-dot" style="background:#50fa7b"></div></div><span>Python — Universal Accounting Export Cleaner</span></div>
+          <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">import</span> numpy  <span class="kw">as</span> np
+<span class="kw">from</span> pathlib <span class="kw">import</span> Path
+
+<span class="kw">def</span> <span class="fn">clean_accounting_export</span>(filepath: str) -> pd.DataFrame:
+    <span class="str">"""
+    Cleans any standard accounting software CSV export.
+    Handles QuickBooks, Xero, and bank statement formats.
+    """</span>
+    path = Path(filepath)
+
+    <span class="cmt"># Handle both CSV and Excel</span>
+    <span class="kw">if</span> path.suffix == <span class="str">'.csv'</span>:
+        df = pd.<span class="fn">read_csv</span>(filepath, skiprows=<span class="num">4</span>, encoding=<span class="str">'utf-8-sig'</span>)
+    <span class="kw">else</span>:
+        df = pd.<span class="fn">read_excel</span>(filepath, skiprows=<span class="num">3</span>)
+
+    <span class="cmt"># Standardise column names</span>
+    df.columns = (df.columns
+        .<span class="fn">str.strip</span>().<span class="fn">str.lower</span>()
+        .<span class="fn">str.replace</span>(<span class="str">' '</span>, <span class="str">'_'</span>)
+        .<span class="fn">str.replace</span>(<span class="str">'[^a-z0-9_]'</span>, <span class="str">''</span>, regex=<span class="kw">True</span>))
+
+    <span class="cmt"># Drop fully blank rows</span>
+    df = df.<span class="fn">dropna</span>(how=<span class="str">'all'</span>)
+
+    <span class="cmt"># Parse dates (handles DD/MM/YYYY and MM/DD/YYYY)</span>
+    date_cols = [c <span class="kw">for</span> c <span class="kw">in</span> df.columns <span class="kw">if</span> <span class="str">'date'</span> <span class="kw">in</span> c]
+    <span class="kw">for</span> col <span class="kw">in</span> date_cols:
+        df[col] = pd.<span class="fn">to_datetime</span>(df[col], dayfirst=<span class="kw">True</span>, errors=<span class="str">'coerce'</span>)
+
+    <span class="cmt"># Clean currency amounts — remove £, $, commas, brackets</span>
+    amount_cols = [c <span class="kw">for</span> c <span class="kw">in</span> df.columns <span class="kw">if</span> <span class="str">'amount'</span> <span class="kw">in</span> c <span class="kw">or</span> <span class="str">'value'</span> <span class="kw">in</span> c]
+    <span class="kw">for</span> col <span class="kw">in</span> amount_cols:
+        df[col] = (df[col].<span class="fn">astype</span>(<span class="fn">str</span>)
+            .<span class="fn">str.replace</span>(<span class="str">'[£$,]'</span>, <span class="str">''</span>, regex=<span class="kw">True</span>)
+            .<span class="fn">str.replace</span>(<span class="str">r'\((.+)\)'</span>, <span class="str">r'-\1'</span>, regex=<span class="kw">True</span>)
+            .<span class="fn">apply</span>(pd.to_numeric, errors=<span class="str">'coerce'</span>))
+
+    df = df.<span class="fn">drop_duplicates</span>()
+    <span class="fn">print</span>(<span class="fn">f</span><span class="str">"✓ Cleaned {len(df):,} rows from {path.name}"</span>)
+    <span class="kw">return</span> df
+
+<span class="cmt"># One line every month — runs in under 2 seconds:</span>
+df = <span class="fn">clean_accounting_export</span>(<span class="str">'april_2026_export.csv'</span>)
+<span class="cmt"># ✓ Cleaned 1,847 rows from april_2026_export.csv</span></pre>
+        </div>
+
+        <h2>Task 2 — Automated Bank Reconciliation</h2>
+        <p>Bank reconciliation — matching transactions in your accounting system against your bank statement — is one of the most time-consuming monthly tasks in any finance team. For businesses with 200–500 transactions per month, it can take a full day. Python reduces this to minutes.</p>
+        <p>The approach: load both the accounting ledger and the bank statement, match on amount and approximate date, flag unmatched items for human review.</p>
+
+        <div class="blog-code">
+          <div class="blog-code-header"><div class="blog-code-dots"><div class="blog-code-dot" style="background:#f97316"></div><div class="blog-code-dot" style="background:#f59e0b"></div><div class="blog-code-dot" style="background:#50fa7b"></div></div><span>Python — Automated Bank Reconciliation</span></div>
+          <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+
+<span class="kw">def</span> <span class="fn">reconcile</span>(ledger_path: str, bank_path: str,
+               date_tolerance: int = <span class="num">3</span>) -> dict:
+    <span class="str">"""
+    Match ledger transactions against bank statement.
+    date_tolerance: allow matches within N days.
+    """</span>
+    ledger = <span class="fn">clean_accounting_export</span>(ledger_path)
+    bank   = <span class="fn">clean_accounting_export</span>(bank_path)
+
+    matched     = []
+    unmatched_l = []
+    unmatched_b = list(bank.itertuples())
+
+    <span class="kw">for</span> l_row <span class="kw">in</span> ledger.itertuples():
+        found = <span class="kw">False</span>
+        <span class="kw">for</span> b_row <span class="kw">in</span> unmatched_b:
+            amount_match = <span class="fn">abs</span>(l_row.amount - b_row.amount) < <span class="num">0.01</span>
+            date_diff    = <span class="fn">abs</span>((l_row.date - b_row.date).days)
+            date_match   = date_diff <= date_tolerance
+
+            <span class="kw">if</span> amount_match <span class="kw">and</span> date_match:
+                matched.<span class="fn">append</span>({
+                    <span class="str">'ledger_date'</span>: l_row.date,
+                    <span class="str">'bank_date'</span>:   b_row.date,
+                    <span class="str">'amount'</span>:      l_row.amount,
+                    <span class="str">'description'</span>: l_row.description
+                })
+                unmatched_b.<span class="fn">remove</span>(b_row)
+                found = <span class="kw">True</span>
+                <span class="kw">break</span>
+
+        <span class="kw">if not</span> found:
+            unmatched_l.<span class="fn">append</span>(l_row)
+
+    <span class="fn">print</span>(<span class="fn">f</span><span class="str">"✓ Matched:     {len(matched):,} transactions"</span>)
+    <span class="fn">print</span>(<span class="fn">f</span><span class="str">"⚠ In ledger only: {len(unmatched_l):,}"</span>)
+    <span class="fn">print</span>(<span class="fn">f</span><span class="str">"⚠ In bank only:   {len(unmatched_b):,}"</span>)
+
+    <span class="kw">return</span> {
+        <span class="str">'matched'</span>:      pd.<span class="fn">DataFrame</span>(matched),
+        <span class="str">'ledger_only'</span>:  pd.<span class="fn">DataFrame</span>(unmatched_l),
+        <span class="str">'bank_only'</span>:    pd.<span class="fn">DataFrame</span>(unmatched_b)
+    }
+
+results = <span class="fn">reconcile</span>(<span class="str">'ledger_apr.csv'</span>, <span class="str">'bank_apr.csv'</span>)
+<span class="cmt"># ✓ Matched:        412 transactions</span>
+<span class="cmt"># ⚠ In ledger only:   8  (need investigation)</span>
+<span class="cmt"># ⚠ In bank only:     3  (need investigation)</span>
+
+<span class="cmt"># Export exceptions for manual review</span>
+results[<span class="str">'ledger_only'</span>].<span class="fn">to_excel</span>(<span class="str">'reconciliation_exceptions.xlsx'</span>, index=<span class="kw">False</span>)</pre>
+        </div>
+
+        <h2>Task 3 — Automated Report Generation</h2>
+        <p>Monthly management accounts, weekly KPI packs, and quarterly board reports all follow the same template every time. The data changes — the structure, formatting, and layout never does. Python with openpyxl or xlsxwriter can generate a fully formatted Excel report from raw data in seconds.</p>
+
+        <div class="blog-code">
+          <div class="blog-code-header"><div class="blog-code-dots"><div class="blog-code-dot" style="background:#f97316"></div><div class="blog-code-dot" style="background:#f59e0b"></div><div class="blog-code-dot" style="background:#50fa7b"></div></div><span>Python — Auto-Generate Monthly Management Report</span></div>
+          <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">from</span> openpyxl <span class="kw">import</span> Workbook
+<span class="kw">from</span> openpyxl.styles <span class="kw">import</span> Font, PatternFill, Alignment
+<span class="kw">from</span> datetime <span class="kw">import</span> datetime
+
+<span class="kw">def</span> <span class="fn">generate_monthly_report</span>(data: pd.DataFrame, month: str):
+    wb = Workbook()
+    ws = wb.active
+    ws.title = <span class="str">"Management Accounts"</span>
+
+    <span class="cmt"># Header styling</span>
+    header_fill = PatternFill(<span class="str">"solid"</span>, fgColor=<span class="str">"1a1a1a"</span>)
+    header_font = Font(bold=<span class="kw">True</span>, color=<span class="str">"c9a84c"</span>, size=<span class="num">11</span>)
+
+    <span class="cmt"># Write title</span>
+    ws[<span class="str">'A1'</span>] = <span class="fn">f</span><span class="str">"Management Accounts — {month}"</span>
+    ws[<span class="str">'A1'</span>].font = Font(bold=<span class="kw">True</span>, size=<span class="num">14</span>)
+
+    <span class="cmt"># Write column headers</span>
+    headers = [<span class="str">'Category'</span>, <span class="str">'Budget'</span>, <span class="str">'Actual'</span>, <span class="str">'Variance'</span>, <span class="str">'Var %'</span>]
+    <span class="kw">for</span> col, header <span class="kw">in</span> <span class="fn">enumerate</span>(headers, <span class="num">1</span>):
+        cell = ws.<span class="fn">cell</span>(row=<span class="num">3</span>, column=col, value=header)
+        cell.fill = header_fill
+        cell.font = header_font
+
+    <span class="cmt"># Write data rows</span>
+    <span class="kw">for</span> row_idx, row <span class="kw">in</span> <span class="fn">enumerate</span>(data.itertuples(), <span class="num">4</span>):
+        ws.<span class="fn">cell</span>(row=row_idx, column=<span class="num">1</span>, value=row.category)
+        ws.<span class="fn">cell</span>(row=row_idx, column=<span class="num">2</span>, value=row.budget)
+        ws.<span class="fn">cell</span>(row=row_idx, column=<span class="num">3</span>, value=row.actual)
+        variance = row.actual - row.budget
+        ws.<span class="fn">cell</span>(row=row_idx, column=<span class="num">4</span>, value=variance)
+        ws.<span class="fn">cell</span>(row=row_idx, column=<span class="num">5</span>, value=<span class="fn">round</span>(variance/row.budget*<span class="num">100</span>,<span class="num">1</span>))
+
+    filename = <span class="fn">f</span><span class="str">"management_accounts_{month.replace(' ','_')}.xlsx"</span>
+    wb.<span class="fn">save</span>(filename)
+    <span class="fn">print</span>(<span class="fn">f</span><span class="str">"✓ Report saved: {filename}"</span>)
+
+<span class="fn">generate_monthly_report</span>(df_april, <span class="str">"April 2026"</span>)
+<span class="cmt"># ✓ Report saved: management_accounts_April_2026.xlsx</span></pre>
+        </div>
+
+        <h2>Task 4 — Automated Invoice Processing</h2>
+        <p>Generating, sending, and tracking invoices is one of the most automatable finance workflows. A Python script can read a client list, generate individual PDF invoices with the correct amounts and dates, email each one to the right recipient, and log the entire batch to a database — in under 30 seconds for 500 invoices.</p>
+
+        <div class="blog-code">
+          <div class="blog-code-header"><div class="blog-code-dots"><div class="blog-code-dot" style="background:#f97316"></div><div class="blog-code-dot" style="background:#f59e0b"></div><div class="blog-code-dot" style="background:#50fa7b"></div></div><span>Python — Invoice Batch Pipeline</span></div>
+          <pre><span class="kw">import</span> pandas <span class="kw">as</span> pd
+<span class="kw">from</span> reportlab.pdfgen <span class="kw">import</span> canvas
+<span class="kw">import</span> smtplib, sqlite3
+<span class="kw">from</span> email.mime.multipart <span class="kw">import</span> MIMEMultipart
+<span class="kw">from</span> email.mime.base     <span class="kw">import</span> MIMEBase
+<span class="kw">from</span> email             <span class="kw">import</span> encoders
+
+<span class="kw">def</span> <span class="fn">run_invoice_batch</span>(client_csv: str, month: str):
+    clients = pd.<span class="fn">read_csv</span>(client_csv)
+    sent = <span class="num">0</span>
+
+    <span class="kw">for</span> _, client <span class="kw">in</span> clients.<span class="fn">iterrows</span>():
+        <span class="cmt"># 1. Generate PDF invoice</span>
+        pdf_path = <span class="fn">generate_pdf_invoice</span>(client, month)
+
+        <span class="cmt"># 2. Send email with PDF attachment</span>
+        <span class="fn">send_invoice_email</span>(
+            to_email    = client[<span class="str">'email'</span>],
+            client_name = client[<span class="str">'name'</span>],
+            amount      = client[<span class="str">'amount_due'</span>],
+            pdf_path    = pdf_path
+        )
+
+        <span class="cmt"># 3. Log to database</span>
+        <span class="fn">log_invoice</span>(client[<span class="str">'id'</span>], client[<span class="str">'amount_due'</span>], month)
+        sent += <span class="num">1</span>
+
+    <span class="fn">print</span>(<span class="fn">f</span><span class="str">"✓ {sent} invoices sent for {month}"</span>)
+    <span class="fn">generate_batch_report</span>(month)
+
+<span class="fn">run_invoice_batch</span>(<span class="str">'clients_april_2026.csv'</span>, <span class="str">'April 2026'</span>)
+<span class="cmt"># ✓ 512 invoices sent for April 2026</span>
+<span class="cmt"># ✓ Batch report saved: invoice_batch_April_2026.xlsx</span></pre>
+        </div>
+
+        <h2>Where to Start — The 1-Hour Rule</h2>
+        <p>Apply this rule to your current weekly accounting workflow: <strong>any task that takes more than one hour per month and follows the same steps every time is worth automating.</strong> List every repetitive task you do. Estimate the monthly time cost. Prioritise the ones that take longest and vary the least.</p>
+        <p>For most finance teams, the top four are data cleaning, reconciliation, report generation, and invoice processing — which is exactly what this article covered. Building all four automations typically takes 2–4 weeks and saves 20–40 hours per month permanently.</p>
+
+        <div class="blog-callout tip">
+          <div class="blog-callout-icon">✅</div>
+          <div class="blog-callout-body">
+            <div class="blog-callout-title">You do not need to be a developer</div>
+            <div class="blog-callout-text">The scripts above use only five Python libraries: pandas, numpy, openpyxl, reportlab, and smtplib. All are free and well-documented. Basic Python proficiency — which you can develop in 4–6 weeks of focused learning — is enough to build and maintain all four automations. The accounting domain knowledge you already have is more valuable than the Python syntax.</div>
+          </div>
+        </div>
+
+        <div class="blog-divider"></div>
+        <div class="blog-cta-banner">
+          <div class="blog-cta-text">
+            <h3>Want These Automations Built for You?</h3>
+            <p>I build custom Python automation systems for finance teams — data cleaning, reconciliation, report generation, and invoice processing. Tell me your most painful manual task and I will build a script that eliminates it.</p>
+          </div>
+          <div class="blog-cta-btns">
+            <a href="../index.html#contact" class="btn-primary">Get a Quote →</a>
+            <a href="../services.html#automation" class="btn-ghost">View Service</a>
+          </div>
+        </div>
+      </article>
+
+      <aside class="blog-sidebar">
+        <div class="blog-toc">
+          <div class="blog-toc-title">Table of Contents</div>
+          <ul class="blog-toc-list">
+            <li><a href="#" onclick="return false">The Accounting Work That Should Not Exist</a></li>
+            <li><a href="#" onclick="return false">Task 1 — Automated Data Cleaning</a></li>
+            <li><a href="#" onclick="return false">Task 2 — Bank Reconciliation</a></li>
+            <li><a href="#" onclick="return false">Task 3 — Report Generation</a></li>
+            <li><a href="#" onclick="return false">Task 4 — Invoice Processing</a></li>
+            <li><a href="#" onclick="return false">Where to Start</a></li>
+          </ul>
+        </div>
+        <div class="blog-sidebar-author">
+          <div class="bsa-avatar">AT</div>
+          <div class="bsa-name">Awais Tahir</div>
+          <div class="bsa-role">Finance Professional · Python Developer</div>
+          <div class="bsa-desc">Building Python automation systems that eliminate repetitive finance work — so teams spend time on analysis, not data wrangling.</div>
+          <a href="../about.html" class="btn-ghost" style="width:100%;justify-content:center;font-size:13px;padding:10px">View Profile</a>
+        </div>
+        <div class="blog-related-sidebar">
+          <div class="blog-related-sidebar-title">Related Articles</div>
+          <a href="blog-pandas-financial-data.html" class="brs-item"><div class="brs-icon" style="background:linear-gradient(135deg,#0d2d0d,#059669)">🐍</div><div><div class="brs-title">Cleaning Financial Data with Python Pandas</div><div class="brs-cat">Python</div></div></a>
+          <a href="blog-cashflow-mistakes.html" class="brs-item"><div class="brs-icon" style="background:linear-gradient(135deg,#5b2c06,#d97706)">💼</div><div><div class="brs-title">Cash Flow Mistakes That Damage Small Businesses</div><div class="brs-cat">Business</div></div></a>
+          <a href="blog-dashboard-mistakes.html" class="brs-item"><div class="brs-icon" style="background:linear-gradient(135deg,#071c24,#38bdf8)">📈</div><div><div class="brs-title">5 Dashboard Mistakes That Make Reports Useless</div><div class="brs-cat">Data Analytics</div></div></a>
+        </div>
+      </aside>
+    </div>
+  </div>
+</section>
+
+<section class="blog-related-section">
+  <div class="container">
+    <div class="section-header scroll-reveal" style="margin-bottom:36px"><div class="section-label">Keep Reading</div><h2 class="section-title">More <span class="gradient-text">Articles</span></h2></div>
+    <div class="blog-related-grid">
+      <a href="blog-pandas-financial-data.html" class="brel-card scroll-reveal"><div class="brel-img" style="background:linear-gradient(135deg,#080d08,#0d2d0d,#059669)">🐍</div><div class="brel-body"><div class="brel-cat">Python</div><div class="brel-title">Cleaning Messy Financial Data with Python Pandas</div><div class="brel-link">Read Article →</div></div></a>
+      <a href="blog-cashflow-mistakes.html" class="brel-card scroll-reveal" style="transition-delay:.1s"><div class="brel-img" style="background:linear-gradient(135deg,#1f1300,#5b2c06,#d97706)">💼</div><div class="brel-body"><div class="brel-cat">Business</div><div class="brel-title">The Cash Flow Mistakes That Quietly Damage Small Businesses</div><div class="brel-link">Read Article →</div></div></a>
+      <a href="blog-dashboard-mistakes.html" class="brel-card scroll-reveal" style="transition-delay:.2s"><div class="brel-img" style="background:linear-gradient(135deg,#071c24,#0d3c4f,#38bdf8)">📈</div><div class="brel-body"><div class="brel-cat">Data Analytics</div><div class="brel-title">5 Dashboard Mistakes That Make Business Reports Useless</div><div class="brel-link">Read Article →</div></div></a>
+    </div>
+  </div>
+</section>
+
+<footer class="footer"><div class="container"><div class="footer-inner"><div class="footer-brand"><div class="footer-logo"><span class="logo-at">AT</span><span class="logo-name">Awais Tahir</span></div><p class="footer-tagline">Finance Professional · Data Analyst · Future Finance-Tech Founder</p><p class="footer-copy">© 2025 Awais Tahir · iamawaistahir.com · All Rights Reserved</p></div><div class="footer-links"><div class="fl-col"><div class="fl-title">Quick Links</div><a href="../about.html">About</a><a href="../services.html">Services</a><a href="../portfolio.html">Portfolio</a><a href="../insights.html">All Articles</a><a href="../index.html#contact">Contact</a></div><div class="fl-col"><div class="fl-title">More Articles</div><a href="blog-dashboard-mistakes.html">Dashboard Mistakes</a><a href="blog-powerbi-business-decisions.html">Power BI Guide</a><a href="blog-cashflow-mistakes.html">Cash Flow Mistakes</a><a href="blog-financial-statement-notes.html">Financial Notes</a></div></div></div><div class="footer-bottom"><span>Built with precision · iamawaistahir.com</span><div class="footer-socials"><a href="https://www.linkedin.com/in/iamawais1628/" target="_blank">in</a><a href="https://wa.me/923000889402" target="_blank">wa</a></div></div></div></footer>
+<button class="scroll-top" id="scrollTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">↑</button>
+<script>const nb=document.getElementById('navbar');window.addEventListener('scroll',()=>{nb.classList.toggle('scrolled',window.scrollY>40);document.getElementById('scrollTop').classList.toggle('visible',window.scrollY>400);});const hb=document.getElementById('hamburger'),mm=document.getElementById('mobileMenu');hb.addEventListener('click',()=>{mm.classList.toggle('open');const s=hb.querySelectorAll('span');if(mm.classList.contains('open')){s[0].style.transform='rotate(45deg) translate(5px,5px)';s[1].style.opacity='0';s[2].style.transform='rotate(-45deg) translate(5px,-5px)';}else{s.forEach(x=>{x.style.transform='';x.style.opacity='';})}});function closeMobile(){mm.classList.remove('open');hb.querySelectorAll('span').forEach(s=>{s.style.transform='';s.style.opacity='';})}const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');})},{threshold:0.08,rootMargin:'0px 0px -40px 0px'});document.querySelectorAll('.scroll-reveal').forEach(el=>obs.observe(el));</script>
+</body></html>
